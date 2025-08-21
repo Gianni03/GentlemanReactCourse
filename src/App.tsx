@@ -1,32 +1,29 @@
-import { useState } from 'react'
+import { useFetch} from './hooks';
 import './App.css'
-import { Button } from './components'
+
+const url = 'https://api.example.com/data'
+
+interface Data {
+  name: string;
+  lastName: string;
+  age: number;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [name, setName] = useState('Gianni')
-  
-  const countMore = () => {
-    setCount((count) => count + 1)
+
+const {data, loading, error} = useFetch<Data>(url);
+
+
+  if (loading) {
+    return <div>Loading...</div>
   }
 
-  let localCount = 0;
-  const increaseLocalCount = () => {
-    localCount += 1
-    console.log(`Local count is ${localCount}`)
-  }
-  // si uso el local count, no se actualiza el valor en el componente porque no estoy usando el useState, funciona pero no lo estoy guardando en el estado
-
-  const changeName = () => {
-    setName('tuki')
+  if (error) {
+    return <div>UPS! hay un error: {error.message}</div>
   }
 
   return (
-    <>
-    <Button label={`Count is ${count}`} parentMethod={countMore} /> 
-    <p>{ name }</p>    
-    <Button label="Change Name" parentMethod={changeName} /> 
-    </>
+    <div>{JSON.stringify(data)}</div>
   )
 }
 
