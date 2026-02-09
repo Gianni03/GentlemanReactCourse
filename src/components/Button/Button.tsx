@@ -1,4 +1,4 @@
-import {  ReactNode } from 'react';
+ import {  ReactNode } from 'react';
 import './button.css';
 
 interface Props {
@@ -11,7 +11,7 @@ interface ChildrenButtonProps {
 }
 
 export const ColorRed = ({ children }: ChildrenButtonProps) => {
-  return (<div style={{ color: 'red' }}>{children}</div>);
+  return (<div className="color-red">{children}</div>);
 };
 
 export const Button = ({ children, parentMethod }: Props) => {
